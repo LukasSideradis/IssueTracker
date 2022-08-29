@@ -1,0 +1,12 @@
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Utility\bin\Debug\net6.0\IssueTracker.Utility.deps.json
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Utility\bin\Debug\net6.0\IssueTracker.Utility.dll
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Utility\bin\Debug\net6.0\IssueTracker.Utility.pdb
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Utility\obj\Debug\net6.0\IssueTracker.Utility.csproj.AssemblyReference.cache
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Utility\obj\Debug\net6.0\IssueTracker.Utility.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Utility\obj\Debug\net6.0\IssueTracker.Utility.AssemblyInfoInputs.cache
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Utility\obj\Debug\net6.0\IssueTracker.Utility.AssemblyInfo.cs
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Utility\obj\Debug\net6.0\IssueTracker.Utility.csproj.CoreCompileInputs.cache
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Utility\obj\Debug\net6.0\IssueTracker.Utility.dll
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Utility\obj\Debug\net6.0\refint\IssueTracker.Utility.dll
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Utility\obj\Debug\net6.0\IssueTracker.Utility.pdb
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Utility\obj\Debug\net6.0\ref\IssueTracker.Utility.dll

@@ -1,0 +1,129 @@
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html, body {
+  height: 100%;
+  margin: 0px;
+}
+
+.navbar {
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.split {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-direction: row;
+}
+
+.split #leftPanel {
+    display: flex;
+    align-self: flex-start;
+    width: 12.5%;
+    position: sticky;
+    top:60px;
+}
+
+.split #middlePanel {
+    display: flex;
+    width: 75%;
+    height: calc(100vh - 120px);
+    overflow-y: scroll;
+    flex: 1;
+    margin-bottom: 60px;
+    background-color: #e9ecef;
+}
+
+.split #rightPanel {
+    display: flex;
+    align-self: flex-start;
+    width: 12.5%;
+    position: sticky;
+    top: 60px;
+}
+
+.footer {
+    display: flex;
+    height: 60px;
+    align-items: center;
+}
+
+.grid-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 150px;
+}
+
+.grid-row #dashboard_card {
+    width: 50%; 
+    height: 100%;
+}
+
+table.dataTable td {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#tableData_paginate {
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
+}
+
+#tableData_info {
+    padding-top: 1.4em;
+}
+
+#force-login-mainbox h1, h3 {
+    padding: 0.5rem;
+    padding-bottom: 0;
+    margin: 0;
+    text-align: center;
+}
+
+#force-login-options {
+    max-height:80%; 
+    width:100%; 
+    padding-right:30%; 
+    padding-left:30%;
+}
+
+#force-login-options .row {
+    height: 50%;
+    margin: 0;
+}
+
+#force-login-options .row > div {
+    height: 100%;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+#force-login-options img {
+    height: 100%;
+}
+
+#force-login-options img:hover {
+    background-color: whitesmoke;
+}
+
+.priority-button {
+    width: 100%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}

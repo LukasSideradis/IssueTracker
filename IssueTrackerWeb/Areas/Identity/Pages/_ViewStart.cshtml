@@ -1,0 +1,11 @@
+﻿@using IssueTracker.Utility
+@{
+	if(!User.IsInRole(Globals.ROLE_USER_ADMIN))
+	{
+		Layout = "~/Views/Shared/_Layout_ForceLogin.cshtml";
+	}
+	else
+	{
+		Layout = "~/Views/Shared/_Layout.cshtml";
+	}
+}

@@ -1,0 +1,27 @@
+﻿@using IssueTracker.Utility
+@model IssueTracker.Models.ViewModels.AssignRoleViewModel
+
+@if(User.IsInRole(Globals.ROLE_USER_ADMIN))
+{
+	<h1 class="text-primary">Assign roles</h1>
+	<hr />
+
+	<form method="post" asp-action="UpdateRole">
+		<div class="col-6 mt-2 mb-2">
+			<select asp-for="@Model.UserId" asp-items="@Model.UserList" class="form-select">
+				<option disabled selected>--Select User--</option>
+			</select>
+		</div>
+
+		<div class="col-6 mt-2 mb-2">
+			<select asp-for="@Model.Role" asp-items="@Model.RoleList" class="form-select">
+				<option disabled selected>--Select Role--</option>
+			</select>
+		</div>
+		<button type="submit" class="btn btn-primary mt-3 me-1" style="width:150px;">Apply changes</button>
+	</form>
+}
+else
+{
+	<h2 class="text-secondary">You don't have the privileges to use this page.</h2>
+}

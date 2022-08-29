@@ -1,0 +1,39 @@
+﻿@if(TempData["success"] != null){
+	<div id="toastSuccess" class="toast bg-success position-fixed start-50 translate-middle-x align-items-center" role="alert" aria-live="assertive" aria-atomic="true" style="z-index:3">
+		<div class="d-flex">
+			<div class="toast-body">
+				<i class="bi bi-check2"></i> &nbsp;
+				@TempData["success"]
+			</div>
+			<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		window.onload = event => {
+			const toastElement = document.getElementById('toastSuccess');
+			const toast = new bootstrap.Toast(toastElement);
+			toast.show();
+		}
+	</script>
+}
+
+@if(TempData["error"] != null){
+		<div id="toastError" class="toast bg-danger position-fixed start-50 translate-middle-x align-items-center" role="alert" aria-live="assertive" aria-atomic="true" style="z-index:2">
+		<div class="d-flex">
+			<div class="toast-body">
+				<i class="bi bi-check2"></i> &nbsp;
+				@TempData["error"]
+			</div>
+			<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		window.onload = event => {
+			const toastElement = document.getElementById('toastError');
+			const toast = new bootstrap.Toast(toastElement);
+			toast.show();
+		}
+	</script>
+}

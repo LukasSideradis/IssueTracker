@@ -1,0 +1,14 @@
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Models\bin\Debug\net6.0\IssueTracker.Models.deps.json
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Models\bin\Debug\net6.0\IssueTracker.Models.runtimeconfig.json
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Models\bin\Debug\net6.0\IssueTracker.Models.dll
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Models\bin\Debug\net6.0\IssueTracker.Models.pdb
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Models\obj\Debug\net6.0\IssueTracker.Models.csproj.AssemblyReference.cache
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Models\obj\Debug\net6.0\IssueTracker.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Models\obj\Debug\net6.0\IssueTracker.Models.AssemblyInfoInputs.cache
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Models\obj\Debug\net6.0\IssueTracker.Models.AssemblyInfo.cs
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Models\obj\Debug\net6.0\IssueTracker.Models.csproj.CoreCompileInputs.cache
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Models\obj\Debug\net6.0\IssueTracker.Models.dll
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Models\obj\Debug\net6.0\refint\IssueTracker.Models.dll
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Models\obj\Debug\net6.0\IssueTracker.Models.pdb
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Models\obj\Debug\net6.0\IssueTracker.Models.genruntimeconfig.cache
+C:\Users\Lukin\source\repos\IssueTracker\IssueTracker.Models\obj\Debug\net6.0\ref\IssueTracker.Models.dll

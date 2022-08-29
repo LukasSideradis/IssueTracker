@@ -1,0 +1,219 @@
+﻿@model IssueTracker.Models.ViewModels.IssueViewModel
+@using IssueTracker.Models.Models
+@using IssueTracker.Utility
+
+@{
+	var details = "text-primary";
+	var comments = "text-primary";
+	var history = "text-primary";
+	var assignedto = "text-primary";
+
+	if (Context.Request.Path.ToString().Contains("details"))
+	{
+		details = "active text-white";
+	}
+	else if (Context.Request.Path.ToString().Contains("comments"))
+	{
+		comments = "active text-white";
+	}
+	else if (Context.Request.Path.ToString().Contains("history"))
+	{
+		history = "active text-white";
+	}
+	else if (Context.Request.Path.ToString().Contains("assignedto"))
+	{
+		assignedto = "active text-white";
+	}
+}
+
+<div>
+	<div class="list-group list-group-horizontal">
+		<a asp-controller="Issue" asp-action="Details" asp-route-id="@Model.IssueId" asp-route-param="details"
+		   class="list-group-item list-group-item-action @details">Details</a>
+		<a asp-controller="Issue" asp-action="Details" asp-route-id="@Model.IssueId" asp-route-param="comments"
+		   class="list-group-item list-group-item-action @comments">Comments</a>
+		<a asp-controller="Issue" asp-action="Details" asp-route-id="@Model.IssueId" asp-route-param="history"
+		   class="list-group-item list-group-item-action @history">History</a>
+		<a asp-controller="Issue" asp-action="Details" asp-route-id="@Model.IssueId" asp-route-param="assignedto"
+		   class="list-group-item list-group-item-action @assignedto">Assigned to</a>
+	</div>
+</div>
+<br />
+
+@if(Model.Parameter == "details")
+{
+	<h1 class="text-primary">Issue details</h1>
+	<hr />
+
+	<form class="pb-4" method="post" asp-action="DetailsUpdate">
+		<fieldset>
+			<input hidden asp-for="@Model.IssueId" value="@Model.Issue.Id">
+			<input hidden asp-for="@Model.Parameter" value="@Model.Parameter">
+			<input hidden asp-for="@Model.Issue.Type" value="@Model.Issue.Type">
+			<div class="col-6">
+				<div class="mb-3">
+					<label asp-for="@Model.Issue.Name"></label>
+					<input asp-for="@Model.Issue.Name" class="form-control modify-readonly" type="text">
+				</div>
+				@if (User.IsInRole(Globals.ROLE_USER_ADMIN))
+				{
+					<div class="mb-3">
+						<label asp-for="@Model.Issue.Description"></label>
+						<textarea asp-for="@Model.Issue.Description" class="form-control"></textarea>
+					</div>
+				}
+				else
+				{
+					<div class="mb-3">
+						<label asp-for="@Model.Issue.Description"></label>
+						<textarea asp-for="@Model.Issue.Description" class="form-control modify-readonly"></textarea>
+					</div>
+				}
+				<div class="mb-3">
+					<label asp-for="@Model.Issue.Type"></label>
+					<input asp-for="@Model.Issue.Type" class="form-control modify-readonly" type="text">
+				</div>
+				<div class="mb-3">
+					<label asp-for="@Model.Issue.UserName"></label>
+					<input asp-for="@Model.Issue.UserName" class="form-control modify-readonly" type="text">
+				</div>
+				<div class="mb-3">
+					<label asp-for="@Model.Issue.CreatedDate"></label>
+					<input asp-for="@Model.Issue.CreatedDate" class="form-control modify-readonly" type="text">
+				</div>
+				<div class="mb-3">
+					<label asp-for="@Model.Issue.LastUpdated"></label>
+					<input asp-for="@Model.Issue.LastUpdated" class="form-control modify-readonly" type="text">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6 mb-3 pe-0">
+					<label asp-for="@Model.Issue.Priority"></label>
+					<input id="priority" value="@Model.Issue.Priority" class="form-control modify-readonly" type="text">
+				</div>
+				@if (User.IsInRole(Globals.ROLE_USER_ADMIN) && (Model.Issue.Status != Globals.ISSUE_STATUS_RESOLVED))
+				{
+					<div class="col-6 mb-3 ps-3 pt-2" style="align-items:center;">
+						<div style="text-align:center;">
+							<label id="priority_slider_label"></label>
+						</div>
+						<input id="priority_slider" asp-for="@Model.Issue.Priority" type="range" class="form-range" 
+							min="1" max="4" step="1" value="1" >
+					</div>
+				}
+			</div>
+			<div class="row">
+				@if (User.IsInRole(Globals.ROLE_USER_ADMIN))
+				{
+					<div class="col-6 form-floating pe-0">
+						<select asp-for="@Model.Issue.Status" class="form-select p-0 ps-1">
+							<option disabled selected>--Select Type--</option>
+							<option value="@Globals.ISSUE_STATUS_NEW">@Globals.ISSUE_STATUS_NEW</option>
+							<option value="@Globals.ISSUE_STATUS_ONHOLD">@Globals.ISSUE_STATUS_ONHOLD</option>
+							<option value="@Globals.ISSUE_STATUS_ACTIVE">@Globals.ISSUE_STATUS_ACTIVE</option>
+							<option value="@Globals.ISSUE_STATUS_RESOLVED">@Globals.ISSUE_STATUS_RESOLVED</option>
+						</select>
+					</div>
+				}
+				else
+				{
+					<div class="col-6 mb-3 pe-0">
+						<label asp-for="@Model.Issue.Status"></label>
+						<input id="status" value="@Model.Issue.Status" class="form-control modify-readonly" type="text">
+					</div>
+				}
+			</div>
+			@if (User.IsInRole(Globals.ROLE_USER_ADMIN))
+			{
+			<div>
+				<button type="submit" class="btn btn-success mt-3 me-1" style="width:150px;">Save changes</button>
+				<a onclick=Delete('/Guest/Issue/Delete/@Model.IssueId')
+					class="btn btn-danger ms-1 mt-3" style="width:150px;">Delete issue</a>
+			</div>
+			}
+		</fieldset>
+	</form>
+}
+
+else if(Model.Parameter == "comments")
+{
+	<h1 class="text-primary">Comments</h1>
+	<hr />
+
+	@if (User.Identity.IsAuthenticated)
+	{
+		<form method="post" class="col-6" asp-controller="Comment" asp-action="Create">
+			<input hidden asp-for="IssueId" value="@Model.IssueId">
+			<input hidden asp-for="Parameter" value="@Model.Parameter">
+			<input hidden asp-for="UserName" value="@User.Identity.Name">
+			<div class="mb-3">
+				<label>Write your own comment</label>
+				<textarea asp-for="Comment.Body" class="form-control"></textarea>
+				<span asp-validation-for="Comment.Body" class="text-danger"></span>
+			</div>
+			<div>
+				<button type="submit" class="btn btn-primary" style="width:150px;">Create</button>
+				<a asp-controller="Issue" asp-action="Details" asp-route-id="@Model.IssueId" asp-route-param="@Model.Parameter"
+					class="btn btn-secondary" style="width:150px;">Back to list</a>
+			</div>
+		</form>
+	}
+
+	<br />
+	<div>
+		@foreach (var obj in Model.Comments)
+		{
+			<div class="col-6">
+				<div class="card border-secondary mb-3 col">
+					<div class="row card-header" style="margin:0">
+						<div class="col-6" style="padding-left:0">@obj.User.UserName</div>
+						<div class="col-6" style="padding-left:0; text-align:end">@obj.CreatedDate</div>
+					</div>
+					<div class="card-body">
+						<div class="card-text">@obj.Body</div>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+}
+
+else if(Model.Parameter == "assignedto")
+{
+	<h1 class="text-primary">Assigned to</h1>
+	<hr />
+
+	<form method="post" asp-action="DetailsAssignIssues">
+		<input hidden asp-for="IssueId" value="@Model.IssueId">
+		<input hidden asp-for="Parameter" value="@Model.Parameter">
+		@foreach (var obj in Model.AssignIssueViewModel.UserList)
+		{
+			if (obj.Value)
+			{
+				<div class="form-check">
+					<input asp-for="@Model.AssignIssueViewModel.UserList[obj.Key]"
+						class="form-check-input" type="checkbox" id="flexCheckChecked" checked="">
+					<label class="form-check-label" for="flexCheckChecked">
+						@obj.Key
+					</label>
+				</div>
+			}
+			else
+			{
+				<div class="form-check">
+					<input asp-for="@Model.AssignIssueViewModel.UserList[obj.Key]" 
+					class="form-check-input" type="checkbox" id="flexCheckDefault">
+					<label class="form-check-label" for="flexCheckDefault">
+						@obj.Key
+					</label>
+				</div>
+			}
+		}
+		<button type="submit" class="btn btn-success mt-2" style="width:150px;">Save changes</button>
+	</form>
+
+}
+
+@section Scripts{
+	<script src="~/js/issue_details.js" asp-append-version="true"></script>
+}

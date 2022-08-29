@@ -1,0 +1,96 @@
+﻿@using IssueTracker.Utility
+@model IssueTracker.Models.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1 class="text-primary">Dashboard</h1>
+<hr />
+
+<div class="grid-column" style="height: 90%">
+	<div class="grid-row pt-3 h-50 w-100">
+		<div id="dashboard_card" class="card border-primary mb-3">
+			<div class="card-header">Highest priority</div>
+			<div class="card-body">
+				<table id="tableData_HighestPriority" class="table table-hover w-100" style="vertical-align:middle; table-layout:fixed">
+					<thead>
+						<tr>
+							<th scope="col">Name</th>
+							<th scope="col">Description</th>
+							<th scope="col">Priority</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<div id="dashboard_card" class="card border-primary mb-3">
+			<div class="card-header">Select by priority</div>
+			<div class="card-body">
+				@for (int i = 0; i < Model.PriorityCount.Count(); i++)
+				{
+					<a asp-action="Index" asp-controller="Issue" asp-route-priority="@Model.PriorityCount.ElementAt(i).Key"
+						class="btn btn-outline-primary priority-button">
+						<div class="row">
+							<div class="col-6">
+								@Model.PriorityCount.ElementAt(i).Key
+							</div>
+							<div class="col-6">
+								@Model.PriorityCount.ElementAt(i).Value
+							</div>
+						</div>
+					</a>
+				}
+			</div>
+		</div>
+	</div>
+	<div class="grid-row pt-3 h-50 w-100">
+		<div id="dashboard_card" class="card border-primary mb-3">
+			<div class="card-header">Recently added</div>
+			<div class="card-body">
+				<table id="tableData_LatestIssues" class="table table-hover w-100" style="vertical-align:middle; table-layout:fixed">
+					<thead>
+						<tr>
+							<th scope="col">Name</th>
+							<th scope="col">Description</th>
+							<th scope="col">Created</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<div id="dashboard_card" class="card border-primary mb-3">
+			<div class="card-header">Latest comments</div>
+			<div class="card-body" style="overflow-y:scroll">
+				@for (int i = 0; i < Model.Comments.Count(); i++)
+				{
+					if(i == 5)
+					{
+						break;
+					}
+					<div class="card border-secondary mb-3 w-100">
+						<div class="row card-header m-0">
+							<div class="row pe-0">
+								<div class="col-6 ps-0" >@Model.Comments.ElementAt(i).User.UserName</div>
+								<div class="col-6 ps-0 pe-0" style="text-align:end">@Model.Comments.ElementAt(i).CreatedDate</div>
+							</div>
+							<div class="row pe-0">
+								<div class="col-6 ps-0">
+									<a href="Guest/Issue/Details/@Model.Comments.ElementAt(i).IssueId/comments">
+										@Model.Comments.ElementAt(i).Issue.Name</a>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="card-text">@Model.Comments.ElementAt(i).Body</div>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts{
+	<script src="~/js/home_index.js" asp-append-version="true"></script>
+}

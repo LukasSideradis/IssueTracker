@@ -1,0 +1,54 @@
+﻿@using IssueTracker.Utility
+@model Issue
+
+<form method="post">
+	<div class="border p-3 pt-4">
+		<div class="row">
+			<h2 class="text-primary">Create issue</h2>
+		</div>
+		<hr />
+
+		<input hidden asp-for="UserName" value="@User.Identity.Name" />
+		<input hidden asp-for="Status" value="@Globals.ISSUE_STATUS_NEW" />
+		<div class="col-6 mb-3">
+			<label asp-for="Name"></label>
+			<input asp-for="Name" class="form-control" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+		<div class="col-6 mb-3">
+			<label asp-for="Description"></label>
+			<textarea asp-for="Description" class="form-control"></textarea>
+			<span asp-validation-for="Description" class="text-danger"></span>
+		</div>
+		<div class="col-6 form-floating mt-4">
+			<select asp-for="Type" class="form-select p-0 ps-1">
+				<option disabled selected>--Select Type--</option>
+				<option value="@Globals.ISSUE_TYPE_BUGS">@Globals.ISSUE_TYPE_BUGS</option>
+				<option value="@Globals.ISSUE_TYPE_VISUALS">@Globals.ISSUE_TYPE_VISUALS</option>
+				<option value="@Globals.ISSUE_TYPE_OTHER">@Globals.ISSUE_TYPE_OTHER</option>
+			</select>
+		</div>
+		@if(User.IsInRole(Globals.ROLE_USER_ADMIN))
+		{
+			<div class="col-6 form-floating mt-4">
+				<select asp-for="Priority" class="form-select p-0 ps-1">
+					<option disabled selected>--Select Priority--</option>
+					<option value="@Globals.ISSUE_PRIORITY_LOW">@Globals.ISSUE_PRIORITY_LOW</option>
+					<option value="@Globals.ISSUE_PRIORITY_STANDARD">@Globals.ISSUE_PRIORITY_STANDARD</option>
+					<option value="@Globals.ISSUE_PRIORITY_IMPORTANT">@Globals.ISSUE_PRIORITY_IMPORTANT</option>
+					<option value="@Globals.ISSUE_PRIORITY_CRITICAL">@Globals.ISSUE_PRIORITY_CRITICAL</option>
+				</select>
+			</div>
+		}
+		else
+		{
+			<input hidden asp-for="Priority" value="@Globals.ISSUE_PRIORITY_NOTASSIGNED" />
+		}
+		<button type="submit" class="btn btn-primary mt-3 me-1" style="width:150px;">Create</button>
+		<a asp-controller="Issue" asp-action="Index" class="btn btn-secondary mt-3 ms-1" style="width:150px;">Back to list</a>
+	</div>
+</form>
+
+@section Scripts{
+	<partial name="_ValidationScriptsPartial.cshtml" />
+}

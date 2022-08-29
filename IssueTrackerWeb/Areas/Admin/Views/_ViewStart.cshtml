@@ -1,0 +1,14 @@
+﻿@using IssueTracker.Utility
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+	if(User.Identity.IsAuthenticated || HttpContextAccessor.HttpContext.Session.GetString("login_role") == Globals.ROLE_USER_GUEST)
+	{
+		Layout = "_Layout";
+		
+	}
+	else
+	{
+		Layout = "_Layout_ForceLogin";
+	}
+}
