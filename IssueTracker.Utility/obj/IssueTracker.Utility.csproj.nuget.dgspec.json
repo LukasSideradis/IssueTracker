@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.Utility\\IssueTracker.Utility.csproj": {}
+    "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.Utility\\IssueTracker.Utility.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.Utility\\IssueTracker.Utility.csproj": {
+    "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.Utility\\IssueTracker.Utility.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.Utility\\IssueTracker.Utility.csproj",
+        "projectUniqueName": "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.Utility\\IssueTracker.Utility.csproj",
         "projectName": "IssueTracker.Utility",
-        "projectPath": "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.Utility\\IssueTracker.Utility.csproj",
+        "projectPath": "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.Utility\\IssueTracker.Utility.csproj",
         "packagesPath": "C:\\Users\\Lukin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.Utility\\obj\\",
+        "outputPath": "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.Utility\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"

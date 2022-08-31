@@ -102,6 +102,7 @@ namespace IssueTrackerWeb.Controllers
                         Parameter = param,
                         Issue = _unitOfWork.Issue.GetFirstOrDefault(x => x.Id == id)
                     };
+
                     if (IssueViewModel.Issue == null)
                     {
                         return NotFound();
@@ -114,8 +115,14 @@ namespace IssueTrackerWeb.Controllers
                         IssueId = id,
                         Parameter = param,
                         Comments = _unitOfWork.Comment.GetAll(x => x.IssueId == id, includeProperties: "User")
-                                        .OrderByDescending(x => x.CreatedDate)
+                                        .OrderByDescending(x => x.CreatedDate),
+                        Issue = _unitOfWork.Issue.GetFirstOrDefault(x => x.Id == id)
                     };
+
+                    if (IssueViewModel.Issue == null)
+                    {
+                        return NotFound();
+                    }
                     return View(IssueViewModel);
 
                 case "history":
@@ -123,37 +130,70 @@ namespace IssueTrackerWeb.Controllers
                     {
                         IssueId = id,
                         Parameter = param,
-                        Comments = _unitOfWork.Comment.GetAll(x => x.IssueId == id, includeProperties: "User")
+                        Comments = _unitOfWork.Comment.GetAll(x => x.IssueId == id, includeProperties: "User"),
+                        Issue = _unitOfWork.Issue.GetFirstOrDefault(x => x.Id == id)
                     };
+
+                    if (IssueViewModel.Issue == null)
+                    {
+                        return NotFound();
+                    }
                     return View(IssueViewModel);
 
                 case "assignedto":
-                    var AllUsers = _unitOfWork.User.GetAll();
-                    var IssueUsers = _unitOfWork.IssueAssignment.GetAll(x => x.IssueId == id);
-                    Dictionary<string, bool> CheckedList = new();
-                    foreach(var user in AllUsers)
+                    var currentIssue = _unitOfWork.Issue.GetFirstOrDefault(x => x.Id == id);
+                    if (currentIssue == null)
                     {
-                        CheckedList[user.UserName] = false;
-                        foreach (var issue in IssueUsers)
+                        return NotFound();
+                    }
+                    else
+                    {
+                        // in case someone decides to type "assignedto" directly into the URL,
+                        // return just a barebones model
+                        if(currentIssue.Status == "Resolved")
                         {
-                            if(issue.IssueId == id && issue.UserId == user.Id)
+                            IssueViewModel = new IssueViewModel()
                             {
-                                CheckedList[user.UserName] = true;
+                                IssueId = id,
+                                Parameter = param,
+                                Issue = _unitOfWork.Issue.GetFirstOrDefault(x => x.Id == id)
+                            };
+
+                            return View(IssueViewModel);
+                        }
+                        // normal proceedings
+                        else
+                        {
+                            var allUsers = _unitOfWork.User.GetAll();
+                            var issueUsers = _unitOfWork.IssueAssignment.GetAll(x => x.IssueId == id);
+                            Dictionary<string, bool> CheckedList = new();
+                            foreach (var user in allUsers)
+                            {
+                                CheckedList[user.UserName] = false;
+                                foreach (var issue in issueUsers)
+                                {
+                                    if (issue.IssueId == id && issue.UserId == user.Id)
+                                    {
+                                        CheckedList[user.UserName] = true;
+                                    }
+                                }
                             }
+
+                            IssueViewModel = new IssueViewModel()
+                            {
+                                IssueId = id,
+                                Parameter = param,
+                                AssignIssueViewModel = new AssignIssueViewModel
+                                {
+                                    IssueId = id,
+                                    UserList = CheckedList
+                                },
+                                Issue = _unitOfWork.Issue.GetFirstOrDefault(x => x.Id == id)
+                            };
+
+                            return View(IssueViewModel);
                         }
                     }
-
-                    IssueViewModel = new IssueViewModel()
-                    {
-                        IssueId = id,
-                        Parameter = param,
-                        AssignIssueViewModel = new AssignIssueViewModel
-                        {
-                            IssueId = id,
-                            UserList = CheckedList
-                        }
-                    };
-                    return View(IssueViewModel);
 
                 default:
                     return View();

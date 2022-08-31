@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.DataAccess\\IssueTracker.DataAccess.csproj": {}
+    "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.DataAccess\\IssueTracker.DataAccess.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.DataAccess\\IssueTracker.DataAccess.csproj": {
+    "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.DataAccess\\IssueTracker.DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.DataAccess\\IssueTracker.DataAccess.csproj",
+        "projectUniqueName": "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.DataAccess\\IssueTracker.DataAccess.csproj",
         "projectName": "IssueTracker.DataAccess",
-        "projectPath": "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.DataAccess\\IssueTracker.DataAccess.csproj",
+        "projectPath": "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.DataAccess\\IssueTracker.DataAccess.csproj",
         "packagesPath": "C:\\Users\\Lukin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.DataAccess\\obj\\",
+        "outputPath": "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -31,8 +31,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.Models\\IssueTracker.Models.csproj": {
-                "projectPath": "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.Models\\IssueTracker.Models.csproj"
+              "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.Models\\IssueTracker.Models.csproj": {
+                "projectPath": "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.Models\\IssueTracker.Models.csproj"
               }
             }
           }
@@ -89,14 +89,14 @@
         }
       }
     },
-    "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.Models\\IssueTracker.Models.csproj": {
+    "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.Models\\IssueTracker.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.Models\\IssueTracker.Models.csproj",
+        "projectUniqueName": "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.Models\\IssueTracker.Models.csproj",
         "projectName": "IssueTracker.Models",
-        "projectPath": "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.Models\\IssueTracker.Models.csproj",
+        "projectPath": "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.Models\\IssueTracker.Models.csproj",
         "packagesPath": "C:\\Users\\Lukin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.Models\\obj\\",
+        "outputPath": "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"

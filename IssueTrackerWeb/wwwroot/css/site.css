@@ -127,3 +127,7 @@ table.dataTable td {
     margin-top: 1%;
     margin-bottom: 1%;
 }
+
+.resolved-issue {
+    background-color: blue;
+}

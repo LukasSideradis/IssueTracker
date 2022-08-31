@@ -11458,11 +11458,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTrackerWeb\\IssueTrackerWeb.csproj",
+      "projectUniqueName": "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTrackerWeb\\IssueTrackerWeb.csproj",
       "projectName": "IssueTrackerWeb",
-      "projectPath": "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTrackerWeb\\IssueTrackerWeb.csproj",
+      "projectPath": "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTrackerWeb\\IssueTrackerWeb.csproj",
       "packagesPath": "C:\\Users\\Lukin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTrackerWeb\\obj\\",
+      "outputPath": "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTrackerWeb\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -11482,11 +11482,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.DataAccess\\IssueTracker.DataAccess.csproj": {
-              "projectPath": "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.DataAccess\\IssueTracker.DataAccess.csproj"
+            "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.DataAccess\\IssueTracker.DataAccess.csproj": {
+              "projectPath": "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.DataAccess\\IssueTracker.DataAccess.csproj"
             },
-            "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.Utility\\IssueTracker.Utility.csproj": {
-              "projectPath": "C:\\Users\\Lukin\\source\\repos\\IssueTracker\\IssueTracker.Utility\\IssueTracker.Utility.csproj"
+            "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.Utility\\IssueTracker.Utility.csproj": {
+              "projectPath": "C:\\Users\\Lukin\\Desktop\\SourceTree_Repositories\\IssueTracker\\IssueTracker.Utility\\IssueTracker.Utility.csproj"
             }
           }
         }

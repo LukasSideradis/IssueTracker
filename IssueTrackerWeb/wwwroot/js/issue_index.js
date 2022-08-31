@@ -8,9 +8,15 @@ $(document).ready(function ()
 function LoadDataTable()
 {
     dataTable = $('#tableData').DataTable({
+        "createdRow": function (data, row, index) {
+            if (data.cells[7].textContent == "Resolved") {
+                data.style.backgroundColor = '#bbbbbb';
+            }
+        },
         "search": {
             "search": GetSearchParams("priority")
         },
+        "order": [7, 'asc'],
         columnDefs: [
             {
                 "render": function (data) {
