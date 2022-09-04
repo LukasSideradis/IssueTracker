@@ -4,6 +4,7 @@ using IssueTracker.Models.ViewModels;
 using IssueTracker.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NuGet.Protocol;
 using System.Security.Claims;
 
 namespace IssueTrackerWeb.Controllers
@@ -45,6 +46,16 @@ namespace IssueTrackerWeb.Controllers
 
                 _unitOfWork.Issue.Add(obj);
                 _unitOfWork.Save();
+
+                // create a history record
+                // has to be called after adding an issue, otherwise
+                // the call crashes looking for IssueId of a non-existing Issue
+                AddIssueHistory(obj, "Issue created.");
+
+                // double Save() call only in this method, everywhere else
+                // the Issue already exists
+                _unitOfWork.Save();
+
                 TempData["success"] = "Issue created successfully.";
                 return RedirectToAction("Index");
             }
@@ -130,7 +141,8 @@ namespace IssueTrackerWeb.Controllers
                     {
                         IssueId = id,
                         Parameter = param,
-                        Comments = _unitOfWork.Comment.GetAll(x => x.IssueId == id, includeProperties: "User"),
+                        Histories = _unitOfWork.IssueHistory.GetAll(x => x.IssueId == id)
+                                        .OrderByDescending(x => x.CreatedDate),
                         Issue = _unitOfWork.Issue.GetFirstOrDefault(x => x.Id == id)
                     };
 
@@ -213,34 +225,73 @@ namespace IssueTrackerWeb.Controllers
 
 			if (ModelState.IsValid)
 			{
+                // prepare a history record string
+                string historyDescription = "";
+
+                // update the issue
                 objFromDb.Description = obj.Issue.Description;
                 objFromDb.LastUpdated = DateTime.Now;
+
+                // prevent duplicate history records
+                if(objFromDb.Status != obj.Issue.Status)
+                {
+                    historyDescription += "Status changed to " + obj.Issue.Status + ". ";
+                }
                 objFromDb.Status = obj.Issue.Status;
+
+                // if an issue is resolved -> remove assignments
                 if(obj.Issue.Status == Globals.ISSUE_STATUS_RESOLVED)
                 {
                     objFromDb.Priority = Globals.ISSUE_PRIORITY_NOTASSIGNED;
                     var issueAssignmentFromDb = _unitOfWork.IssueAssignment.GetAll(x => x.IssueId == objFromDb.Id);
                     _unitOfWork.IssueAssignment.RemoveRange(issueAssignmentFromDb);
+
+                    historyDescription = "Status changed to " + objFromDb.Status + ". ";
                 }
                 else
                 {
                     switch (obj.Issue.Priority)
                     {
                         case "1":
+                            // the switch being int based because of the priority slider element
+                            // makes these checks very clunky
+                            if(objFromDb.Priority != Globals.ISSUE_PRIORITY_LOW)
+                            {
+                                historyDescription += "Priority changed to " + Globals.ISSUE_PRIORITY_LOW + ". ";
+                            }
                             objFromDb.Priority = Globals.ISSUE_PRIORITY_LOW;
                             break;
+
                         case "2":
+                            if (objFromDb.Priority != Globals.ISSUE_PRIORITY_STANDARD)
+                            {
+                                historyDescription += "Priority changed to " + Globals.ISSUE_PRIORITY_STANDARD + ". ";
+                            }
                             objFromDb.Priority = Globals.ISSUE_PRIORITY_STANDARD;
                             break;
+
                         case "3":
+                            if (objFromDb.Priority != Globals.ISSUE_PRIORITY_IMPORTANT)
+                            {
+                                historyDescription += "Priority changed to " + Globals.ISSUE_PRIORITY_IMPORTANT + ". ";
+                            }
                             objFromDb.Priority = Globals.ISSUE_PRIORITY_IMPORTANT;
                             break;
+
                         case "4":
+                            if (objFromDb.Priority != Globals.ISSUE_PRIORITY_CRITICAL)
+                            {
+                                historyDescription += "Priority changed to " + Globals.ISSUE_PRIORITY_CRITICAL + ". ";
+                            }
                             objFromDb.Priority = Globals.ISSUE_PRIORITY_CRITICAL;
                             break;
                     }
                 }
 
+                // create a history record
+                AddIssueHistory(objFromDb, historyDescription);
+
+                // finalize updating
                 _unitOfWork.Issue.Update(objFromDb);
                 _unitOfWork.Save();
                 TempData["success"] = "Changes saved succesfully.";
@@ -291,6 +342,21 @@ namespace IssueTrackerWeb.Controllers
             return RedirectToAction("Details", controllerName: "Issue", new { id = obj.IssueId, param = obj.Parameter });
         }
 
+        private void AddIssueHistory(Issue issue, string description)
+        {
+            if(description != "")
+            {
+                IssueHistory history = new IssueHistory
+                {
+                    IssueId = issue.Id,
+                    Description = description,
+                    CreatedDate = DateTime.Now
+                };
+
+                _unitOfWork.IssueHistory.Add(history);
+            }
+        }
+
             // API calls
             #region API CALLS
             [HttpGet]
@@ -308,6 +374,10 @@ namespace IssueTrackerWeb.Controllers
             {
                 return Json(new { success = false, message = "Error while deleting" });
             }
+
+            // remove all history associated with this issue
+            var historyFromDb = _unitOfWork.IssueHistory.GetAll(x => x.IssueId == id);
+            _unitOfWork.IssueHistory.RemoveRange(historyFromDb);
 
             _unitOfWork.Issue.Remove(objFromDb);
             _unitOfWork.Save();

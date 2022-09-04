@@ -185,6 +185,26 @@ else if(Model.Parameter == "comments")
 	</div>
 }
 
+else if(Model.Parameter == "history")
+{
+	<h1 class="text-primary">History</h1>
+	<hr	/>
+
+	<div>
+		@foreach (var obj in Model.Histories)
+		{
+			<div class="col-6 row">
+				<div class="pe-0" style="width: 26%">
+					<b>@obj.CreatedDate -&nbsp;</b>
+					</div>
+				<div class="ps-0" style="width: 74%">
+					@obj.Description
+				</div>
+			</div>
+		}
+	</div>
+}
+
 else if(Model.Parameter == "assignedto")
 {
 	@if (Model.Issue.Status == "Resolved")

@@ -12,6 +12,7 @@ namespace IssueTracker.DataAccess.Repository.IRepository
         IIssueRepository Issue { get; }
         IUserRepository User { get; }
         IIssueAssignmentRepository IssueAssignment { get; }
+        IIssueHistoryRepository IssueHistory { get; }
         void Save();
     }
 }

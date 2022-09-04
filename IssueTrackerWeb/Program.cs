@@ -5,14 +5,32 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using IssueTracker.Utility;
+using IssueTracker.Utility.Options;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.ConfigureOptions<DatabaseOptionsSetups>();
+
+builder.Services.AddDbContext<ApplicationDbContext>(
+    (serviceProvider, options) =>
+    {
+        var databaseOptions = serviceProvider.GetService<IOptions<DatabaseOptions>>()!.Value;
+
+        options.UseSqlServer(databaseOptions.ConnectionString, sqlServerAction =>
+        {
+            sqlServerAction.EnableRetryOnFailure(databaseOptions.MaxRetryCount);
+
+            sqlServerAction.CommandTimeout(databaseOptions.CommandTimeout);
+        });
+
+        options.EnableDetailedErrors(databaseOptions.EnableDetailedErrors);
+        options.EnableSensitiveDataLogging(databaseOptions.EnableSensitiveDataLogging);
+    });
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();

@@ -9,27 +9,21 @@ using System.Threading.Tasks;
 
 namespace IssueTracker.Models.Models
 {
-    public class Comment
+    public class IssueHistory
     {
         [Key]
         public int Id { get; set; }
 
+        [Required]
+        public int IssueId { get; set; }
+
         [ForeignKey("IssueId")]
         [ValidateNever]
         public Issue Issue { get; set; }
-        public int IssueId { get; set; }
-
-        [ForeignKey("UserId")]
-        [ValidateNever]
-        public User User { get; set; }
-        public string UserId { get; set; }
 
         [Required]
-        public string Body { get; set; }
+        public string Description { get; set; }
 
         public DateTime CreatedDate { get; set; }
-        public DateTime LastUpdated { get; set; }
-        public int Upvotes { get; set; }
-        public int Downvotes { get; set; }
     }
 }

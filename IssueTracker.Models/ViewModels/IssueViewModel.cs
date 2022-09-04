@@ -24,6 +24,9 @@ namespace IssueTracker.Models.ViewModels
         // for comments
         public IEnumerable<Comment>? Comments { get; set; }
 
+        // for history
+        public IEnumerable<IssueHistory>? Histories { get; set; }
+
         // for assignments
         public AssignIssueViewModel? AssignIssueViewModel { get; set; }
     }

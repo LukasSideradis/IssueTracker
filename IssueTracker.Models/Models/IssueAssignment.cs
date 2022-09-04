@@ -13,11 +13,17 @@ namespace IssueTracker.Models.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Required]
         public int IssueId { get; set; }
+
         [ForeignKey("IssueId")]
         [ValidateNever]
         public Issue Issue { get; set; }
+
+        [Required]
         public string UserId { get; set; }
+
         [ForeignKey("UserId")]
         [ValidateNever]
         public User User { get; set; }

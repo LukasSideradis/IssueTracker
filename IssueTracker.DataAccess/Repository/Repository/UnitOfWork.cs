@@ -14,6 +14,9 @@ namespace IssueTracker.DataAccess.Repository.Repository
         public IIssueRepository Issue { get; private set; }
         public IUserRepository User { get; private set; }
         public IIssueAssignmentRepository IssueAssignment { get; private set; }
+        public IIssueHistoryRepository IssueHistory { get; private set; }
+
+        private readonly string devOptions = "changes";
 
         public UnitOfWork(ApplicationDbContext db)
         {
@@ -22,11 +25,15 @@ namespace IssueTracker.DataAccess.Repository.Repository
             Issue = new IssueRepository(_dbContext);
             User = new UserRepository(_dbContext);
             IssueAssignment = new IssueAssignmentRepository(_dbContext);
+            IssueHistory = new IssueHistoryRepository(_dbContext);
         }
 
         public void Save()
         {
-            _dbContext.SaveChanges();
+            if(devOptions != "nochanges")
+            {
+                _dbContext.SaveChanges();
+            }
         }
     }
 }

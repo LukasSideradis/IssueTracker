@@ -14,16 +14,21 @@ namespace IssueTracker.Models.Models
         //              input fields, those will be set by the code
         [Key]
         public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
+
         [Display(Name = "Created by")]
         public string? UserName { get; set; }
         public string? Description { get; set; }
+
         [Display(Name = "Date created")]
         public DateTime CreatedDate { get; set; }
+
         public string? Priority { get; set; }
         public string? Status { get; set; }
-        public string Type { get; set; }
+        public string? Type { get; set; }
+
         [Display(Name = "Last updated")]
         public DateTime LastUpdated { get; set; }
 

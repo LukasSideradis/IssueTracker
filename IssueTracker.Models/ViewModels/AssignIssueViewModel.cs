@@ -12,6 +12,7 @@ namespace IssueTracker.Models.ViewModels
     public class AssignIssueViewModel
     {
         public int? IssueId { get; set; }
+
         [ValidateNever]
         public Dictionary<string, bool> UserList { get; set; }
     }

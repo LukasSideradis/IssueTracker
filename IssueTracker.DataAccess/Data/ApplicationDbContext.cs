@@ -14,5 +14,6 @@ namespace IssueTracker.DataAccess
         public DbSet<User> Users { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<IssueAssignment> IssueAssignments { get; set; }
+        public DbSet<IssueHistory> IssueHistories { get; set; }
     }
 }
