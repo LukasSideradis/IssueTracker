@@ -342,6 +342,12 @@ namespace IssueTrackerWeb.Controllers
             return RedirectToAction("Details", controllerName: "Issue", new { id = obj.IssueId, param = obj.Parameter });
         }
 
+        // get
+        public IActionResult MyIssues()
+        {
+            return View("MyIssues");
+        }
+
         private void AddIssueHistory(Issue issue, string description)
         {
             if(description != "")
@@ -357,13 +363,29 @@ namespace IssueTrackerWeb.Controllers
             }
         }
 
-            // API calls
-            #region API CALLS
-            [HttpGet]
+        // API calls
+        #region API CALLS
+
+        [HttpGet]
         public IActionResult GetAll()
         {
             var issueList = _unitOfWork.Issue.GetAll();
             return Json(new { data = issueList });
+        }
+
+        [HttpGet]
+        public IActionResult GetSpecificUserIssues(string userName)
+        {
+            var userId = _unitOfWork.User.GetFirstOrDefault(x => x.UserName == userName).Id;
+            var userIssueAssignmentList = _unitOfWork.IssueAssignment.GetAll(x => x.UserId == userId);
+            List<Issue> userIssueList = new List<Issue>();
+
+            for(int i = 0; i < userIssueAssignmentList.Count(); i++)
+            {
+                userIssueList.Add(_unitOfWork.Issue.GetFirstOrDefault(x => x.Id == userIssueAssignmentList.ElementAt(i).IssueId));
+            }
+
+            return Json(new { data = userIssueList });
         }
 
         [HttpDelete]

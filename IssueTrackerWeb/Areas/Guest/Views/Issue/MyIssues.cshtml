@@ -1,0 +1,38 @@
+﻿@model Issue
+
+@if(User.Identity.IsAuthenticated)
+{
+    <div class="row">
+        <div class="col-6">
+            <h1 class="text-primary mb-0">@User.Identity.Name's Issues</h1>
+        </div>
+    </div>
+    <hr />
+
+    <table id="tableData" class="table table-hover w-100" style="vertical-align:middle; table-layout:fixed">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Type</th>
+                <th scope="col">Created by</th>
+                <th scope="col">Created at</th>
+                <th scope="col">Last updated</th>
+                <th scope="col">Priority</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+    </table>
+}
+else
+{
+	<h1 class="text-secondary">This page is empty because you're not logged in.</h1>
+}
+
+@section Scripts{
+    <script>
+        var name = '@User.Identity.Name';
+    </script>
+
+    <script src="~/js/myissues_index.js" asp-append-version="true"></script>
+}
