@@ -18,12 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DbInitializer\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\IssueTracker.Models\IssueTracker.Models.csproj" />
+    <ProjectReference Include="..\IssueTracker.Utility\IssueTracker.Utility.csproj" />
   </ItemGroup>
 
 </Project>

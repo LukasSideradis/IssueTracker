@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using IssueTracker.Utility;
 using IssueTracker.Utility.Options;
 using Microsoft.Extensions.Options;
+using IssueTracker.DataAccess.DbInitializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 builder.Services.ConfigureApplicationCookie(options =>
@@ -66,6 +68,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+SeedDatabase();
 
 app.UseAuthentication();;
 app.UseAuthorization();
@@ -81,3 +84,12 @@ app.MapControllerRoute(
     pattern: "{area=Guest}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}
