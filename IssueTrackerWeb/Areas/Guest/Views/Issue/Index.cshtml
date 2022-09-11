@@ -1,12 +1,16 @@
-﻿@model IEnumerable<Issue>
+﻿@using IssueTracker.Utility
+@model IEnumerable<Issue>
 
 <div class="row">
 	<div class="col-6">
 		<h1 class="text-primary mb-0">Issues</h1>
 	</div>
-	<div class="col-6" style="text-align:end;">
-		<a class="btn btn-success mt-2 mb-0" asp-controller="Issue" asp-action="Create">Create</a>
-	</div>
+	@if(User.IsInRole(Globals.ROLE_USER_ADMIN) || User.IsInRole(Globals.ROLE_USER_ADVANCED))
+	{
+		<div class="col-6" style="text-align:end;">
+			<a class="btn btn-success mt-2 mb-0" asp-controller="Issue" asp-action="Create">Create</a>
+		</div>
+	}
 </div>
 <hr />
 

@@ -1,6 +1,6 @@
 ﻿@using IssueTracker.Utility
 @{
-	if(!User.IsInRole(Globals.ROLE_USER_ADMIN))
+	if(!User.Identity.IsAuthenticated)
 	{
 		Layout = "~/Views/Shared/_Layout_ForceLogin.cshtml";
 	}

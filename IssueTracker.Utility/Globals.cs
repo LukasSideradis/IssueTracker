@@ -11,7 +11,7 @@ namespace IssueTracker.Utility
         // Role strings
         public const string ROLE_USER_ADMIN = "Admin";              // can do everything
         public const string ROLE_USER_ADVANCED = "Advanced User";   // can assign users to issues, create issues
-        public const string ROLE_USER_BASIC = "Basic User";         // can comment and look at statistics
+        public const string ROLE_USER_BASIC = "Basic User";         // can comment
         public const string ROLE_USER_GUEST = "Guest";              // can only look at issues
 
         // Issue priority strings

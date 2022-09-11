@@ -34,7 +34,8 @@
 		   class="list-group-item list-group-item-action @comments">Comments</a>
 		<a asp-controller="Issue" asp-action="Details" asp-route-id="@Model.IssueId" asp-route-param="history"
 		   class="list-group-item list-group-item-action @history">History</a>
-		@if(Model.Issue.Status == "Resolved")
+		@if(Model.Issue.Status == "Resolved" ||
+				!((User.IsInRole(Globals.ROLE_USER_ADMIN)) || (User.IsInRole(Globals.ROLE_USER_ADVANCED))))
 		{
 			<button class="list-group-item list-group-item-action @assignedto" style="background-color: #bbbbbb;" disabled>Assigned to</button>
 		}
@@ -194,10 +195,10 @@ else if(Model.Parameter == "history")
 		@foreach (var obj in Model.Histories)
 		{
 			<div class="col-6 row">
-				<div class="pe-0" style="width: 26%">
-					<b>@obj.CreatedDate -&nbsp;</b>
+				<div class="" style="">
+					<b>@obj.CreatedDate</b>
 					</div>
-				<div class="ps-0" style="width: 74%">
+				<div class="ps-5 pb-2" style="">
 					@obj.Description
 				</div>
 			</div>
@@ -207,44 +208,51 @@ else if(Model.Parameter == "history")
 
 else if(Model.Parameter == "assignedto")
 {
-	@if (Model.Issue.Status == "Resolved")
+	@if (!(User.IsInRole(Globals.ROLE_USER_ADMIN) || User.IsInRole(Globals.ROLE_USER_ADVANCED)))
 	{
-		<h1 class="text-secondary">This page is disabled because the issue has been marked as resolved</h1>
+		<h2 class="text-secondary">You don't have the privileges to view this page.</h2>
 	}
 	else
 	{
-		<h1 class="text-primary">Assigned to</h1>
-		<hr />
+		if (Model.Issue.Status == "Resolved")
+		{
+			<h2 class="text-secondary">This page is disabled because the issue has been marked as resolved</h2>
+		}
+		else
+		{
+			<h1 class="text-primary">Assigned to</h1>
+			<hr />
 
-		<form method="post" asp-action="DetailsAssignIssues">
-			<input hidden asp-for="IssueId" value="@Model.IssueId">
-			<input hidden asp-for="Parameter" value="@Model.Parameter">
-			@foreach (var obj in Model.AssignIssueViewModel.UserList)
-			{
-				if (obj.Value)
+			<form method="post" asp-action="DetailsAssignIssues">
+				<input hidden asp-for="IssueId" value="@Model.IssueId">
+				<input hidden asp-for="Parameter" value="@Model.Parameter">
+				@foreach (var obj in Model.AssignIssueViewModel.UserList)
 				{
-					<div class="form-check">
-						<input asp-for="@Model.AssignIssueViewModel.UserList[obj.Key]"
-			   class="form-check-input" type="checkbox" id="flexCheckChecked" checked="">
-						<label class="form-check-label" for="flexCheckChecked">
-							@obj.Key
-						</label>
-					</div>
+					if (obj.Value)
+					{
+						<div class="form-check">
+							<input asp-for="@Model.AssignIssueViewModel.UserList[obj.Key]"
+				class="form-check-input" type="checkbox" id="flexCheckChecked" checked="">
+							<label class="form-check-label" for="flexCheckChecked">
+								@obj.Key
+							</label>
+						</div>
+					}
+					else
+					{
+						<div class="form-check">
+							<input asp-for="@Model.AssignIssueViewModel.UserList[obj.Key]"
+				class="form-check-input" type="checkbox" id="flexCheckDefault">
+							<label class="form-check-label" for="flexCheckDefault">
+								@obj.Key
+							</label>
+						</div>
+					}
 				}
-				else
-				{
-					<div class="form-check">
-						<input asp-for="@Model.AssignIssueViewModel.UserList[obj.Key]"
-			   class="form-check-input" type="checkbox" id="flexCheckDefault">
-						<label class="form-check-label" for="flexCheckDefault">
-							@obj.Key
-						</label>
-					</div>
-				}
-			}
-			<button type="submit" class="btn btn-success mt-2" style="width:150px;">Save changes</button>
-		</form>
-	}
+				<button type="submit" class="btn btn-success mt-2" style="width:150px;">Save changes</button>
+			</form>
+		}
+    }
 }
 
 @section Scripts{
