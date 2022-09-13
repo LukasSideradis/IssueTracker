@@ -16,7 +16,7 @@ namespace IssueTracker.DataAccess.Repository.Repository
         public IIssueAssignmentRepository IssueAssignment { get; private set; }
         public IIssueHistoryRepository IssueHistory { get; private set; }
 
-        private readonly string devOptions = "changes";
+        private readonly string devOptions = "nochanges";
 
         public UnitOfWork(ApplicationDbContext db)
         {

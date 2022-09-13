@@ -1,5 +1,9 @@
 ﻿@model Issue
 
+@{
+    ViewData["Title"] = "My issues";
+}
+
 @if(User.Identity.IsAuthenticated)
 {
     <div class="row">

@@ -1,6 +1,10 @@
 ﻿@using IssueTracker.Utility
 @model Issue
 
+@{
+    ViewData["Title"] = "Issue - create";
+}
+
 @if (User.IsInRole(Globals.ROLE_USER_ADMIN) || User.IsInRole(Globals.ROLE_USER_ADVANCED))
 {
 	<form method="post">

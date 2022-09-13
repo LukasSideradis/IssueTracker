@@ -1,6 +1,10 @@
 ﻿@using IssueTracker.Utility
 @model IssueTracker.Models.ViewModels.AssignRoleViewModel
 
+@{
+    ViewData["Title"] = "Assign roles";
+}
+
 @if(User.IsInRole(Globals.ROLE_USER_ADMIN))
 {
 	<h1 class="text-primary">Assign roles</h1>
